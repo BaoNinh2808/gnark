@@ -126,3 +126,37 @@ func TestAdd(t *testing.T) {
 	err := test.IsSolved(&addCircuit{}, &addCircuit{In: [2]U32{NewU32(^uint32(0)), NewU32(2)}, Expected: NewU32(1)}, ecc.BN254.ScalarField())
 	assert.NoError(err)
 }
+
+type assertLessCircuit struct {
+	A, B U32
+}
+
+func (c *assertLessCircuit) Define(api frontend.API) error {
+	uapi, err := New[U32](api)
+	if err != nil {
+		return err
+	}
+	uapi.AssertIsLess(c.A, c.B)
+	return nil
+}
+
+func TestAssertLess(t *testing.T) {
+	assert := test.NewAssert(t)
+	err := test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(1), B: NewU32(2)}, ecc.BN254.ScalarField())
+	assert.NoError(err)
+
+	err = test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(2), B: NewU32(1)}, ecc.BN254.ScalarField())
+	assert.Error(err)
+
+	err = test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(1234), B: NewU32(1233)}, ecc.BN254.ScalarField())
+	assert.Error(err)
+
+	err = test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(12), B: NewU32(123)}, ecc.BN254.ScalarField())
+	assert.NoError(err)
+
+	err = test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(2345), B: NewU32(3)}, ecc.BN254.ScalarField())
+	assert.Error(err)
+
+	err = test.IsSolved(&assertLessCircuit{}, &assertLessCircuit{A: NewU32(0), B: NewU32(0)}, ecc.BN254.ScalarField())
+	assert.Error(err)
+}

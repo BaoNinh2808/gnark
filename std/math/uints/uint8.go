@@ -24,11 +24,13 @@ package uints
 
 import (
 	"fmt"
+	"math/big"
 	"math/bits"
 
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/std/internal/logderivprecomp"
 	"github.com/consensys/gnark/std/math/bitslice"
+	"github.com/consensys/gnark/std/math/cmp"
 	"github.com/consensys/gnark/std/rangecheck"
 )
 
@@ -85,6 +87,7 @@ type Long interface{ U32 | U64 }
 
 type BinaryField[T U32 | U64] struct {
 	api        frontend.API
+	u8cmpApi   *cmp.BoundedComparator
 	xorT, andT *logderivprecomp.Precomputed
 	rchecker   frontend.Rangechecker
 	allOne     U8
@@ -100,8 +103,11 @@ func New[T Long](api frontend.API) (*BinaryField[T], error) {
 		return nil, fmt.Errorf("new and table: %w", err)
 	}
 	rchecker := rangecheck.New(api)
+
+	u8cmpApi := cmp.NewBoundedComparator(api, big.NewInt(255), false) //in u8 we can have 2^8 values --> upperAbsDiff = 11111111b - 00000000b = 255
 	bf := &BinaryField[T]{
 		api:      api,
+		u8cmpApi: u8cmpApi,
 		xorT:     xorT,
 		andT:     andT,
 		rchecker: rchecker,
@@ -331,6 +337,54 @@ func (bf *BinaryField[T]) ByteAssertEq(a, b U8) {
 func (bf *BinaryField[T]) AssertEq(a, b T) {
 	for i := 0; i < bf.lenBts(); i++ {
 		bf.ByteAssertEq(a[i], b[i])
+	}
+}
+
+func (bf *BinaryField[T]) ByteAssertIsLess(a, b U8) {
+	bf.u8cmpApi.AssertIsLess(a.Val, b.Val)
+}
+
+func (bf *BinaryField[T]) ByteAssertIsLessEq(a, b U8) {
+	bf.u8cmpApi.AssertIsLessEq(a.Val, b.Val)
+}
+
+func (bf *BinaryField[T]) isEqual(a, b U8) frontend.Variable {
+	return bf.api.IsZero(bf.api.Sub(a.Val, b.Val))
+}
+
+func (bf *BinaryField[T]) isLess(a, b U8) frontend.Variable {
+	return bf.u8cmpApi.IsLess(a.Val, b.Val)
+}
+
+func (bf *BinaryField[T]) AssertIsLess(a, b T) {
+	lenB := bf.lenBts()
+	// create a array of frontend.Variable with lenght lenB
+	isLess := make([]frontend.Variable, lenB)
+	isEqual := make([]frontend.Variable, lenB)
+
+	isLess[0] = bf.isLess(a[lenB-1], b[lenB-1])
+	isEqual[0] = bf.isEqual(a[lenB-1], b[lenB-1])
+
+	for i := 1; i < lenB; i++ {
+		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.isLess(a[lenB-1-i], b[lenB-1-i]))
+		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.isEqual(a[lenB-1-i], b[lenB-1-i]))
+	}
+
+	//assert isLess != 0 (because there is a case that a = b ==> isLess = {0, 0, 0, 0, 0, 0, 0, 0} & isEqual = {1, 1, 1, 1, 1, 1, 1, 1} ==> xorValue = {1, 1, 1, 1, 1, 1, 1, 1})
+	sum := frontend.Variable(0)
+	for i := 0; i < len(isLess); i++ {
+		sum = bf.api.Add(sum, isLess[i])
+	}
+	bf.api.AssertIsDifferent(sum, 0)
+
+	//assert xorValue = xor(isLess, isEqual) = {1, 1, 1, 1, 1, 1, 1, 1}
+	xorValue := make([]frontend.Variable, lenB)
+	for i := 0; i < lenB; i++ {
+		xorValue[i] = bf.api.Xor(isLess[i], isEqual[i])
+	}
+
+	for i := 0; i < lenB; i++ {
+		bf.api.AssertIsEqual(xorValue[i], 1)
 	}
 }
 
