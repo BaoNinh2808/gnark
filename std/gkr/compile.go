@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math/bits"
 
+	"github.com/BaoNinh2808/gnark/internal/algo_utils"
 	"github.com/consensys/gnark/constraint"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/internal/algo_utils"
 	fiatshamir "github.com/consensys/gnark/std/fiat-shamir"
 	"github.com/consensys/gnark/std/hash"
 )

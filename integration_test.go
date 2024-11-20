@@ -20,8 +20,8 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/BaoNinh2808/gnark/internal/backend/circuits"
 	"github.com/consensys/gnark/constraint/solver"
-	"github.com/consensys/gnark/internal/backend/circuits"
 	"github.com/consensys/gnark/test"
 )
 

@@ -3,9 +3,9 @@ package fields_bn254
 import (
 	"math/big"
 
+	"github.com/BaoNinh2808/gnark/internal/frontendtype"
 	"github.com/consensys/gnark-crypto/ecc/bn254"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/internal/frontendtype"
 )
 
 type E6 struct {

@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	limbs "github.com/consensys/gnark/std/internal/limbcomposition"
+	limbs "github.com/BaoNinh2808/gnark/std/internal/limbcomposition"
 	"github.com/consensys/gnark/std/math/emulated"
 	"github.com/consensys/gnark/std/math/emulated/emparams"
 	"github.com/consensys/gnark/test"

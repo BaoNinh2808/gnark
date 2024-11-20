@@ -9,6 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/BaoNinh2808/gnark/internal/backend/circuits"
+	"github.com/BaoNinh2808/gnark/internal/kvstore"
+	"github.com/BaoNinh2808/gnark/internal/tinyfield"
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"github.com/consensys/gnark/backend/witness"
 	"github.com/consensys/gnark/constraint"
 	"github.com/consensys/gnark/constraint/solver"
@@ -17,10 +21,6 @@ import (
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 	"github.com/consensys/gnark/frontend/cs/scs"
 	"github.com/consensys/gnark/frontend/schema"
-	"github.com/consensys/gnark/internal/backend/circuits"
-	"github.com/consensys/gnark/internal/kvstore"
-	"github.com/consensys/gnark/internal/tinyfield"
-	"github.com/consensys/gnark/internal/utils"
 )
 
 // ignore witness size larger than this bound

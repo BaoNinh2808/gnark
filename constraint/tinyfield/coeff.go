@@ -20,10 +20,10 @@ import (
 	"encoding/binary"
 	"errors"
 	"github.com/consensys/gnark/constraint"
-	"github.com/consensys/gnark/internal/utils"
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"math/big"
 
-	fr "github.com/consensys/gnark/internal/tinyfield"
+	fr "github.com/BaoNinh2808/gnark/internal/tinyfield"
 )
 
 // CoeffTable ensure we store unique coefficients in the constraint system

@@ -31,7 +31,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	fr "github.com/consensys/gnark/internal/tinyfield"
+	fr "github.com/BaoNinh2808/gnark/internal/tinyfield"
 )
 
 // solver represent the state of the solver during a call to System.Solve(...)

@@ -27,8 +27,8 @@ import (
 	"math/big"
 	"math/bits"
 
+	"github.com/BaoNinh2808/gnark/std/internal/logderivprecomp"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/std/internal/logderivprecomp"
 	"github.com/consensys/gnark/std/math/bitslice"
 	"github.com/consensys/gnark/std/math/cmp"
 	"github.com/consensys/gnark/std/rangecheck"

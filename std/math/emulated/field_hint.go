@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math/big"
 
+	limbs "github.com/BaoNinh2808/gnark/std/internal/limbcomposition"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/frontend"
-	limbs "github.com/consensys/gnark/std/internal/limbcomposition"
 )
 
 func (f *Field[T]) wrapHint(nonnativeInputs ...*Element[T]) []frontend.Variable {

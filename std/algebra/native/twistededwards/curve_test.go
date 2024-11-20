@@ -31,8 +31,8 @@ import (
 	tbw6761 "github.com/consensys/gnark-crypto/ecc/bw6-761/twistededwards"
 	"github.com/consensys/gnark-crypto/ecc/twistededwards"
 
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/internal/utils"
 	"github.com/consensys/gnark/test"
 )
 

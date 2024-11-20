@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"math/bits"
 
+	limbs "github.com/BaoNinh2808/gnark/std/internal/limbcomposition"
 	"github.com/consensys/gnark/frontend"
-	limbs "github.com/consensys/gnark/std/internal/limbcomposition"
 	"github.com/consensys/gnark/std/multicommit"
 )
 

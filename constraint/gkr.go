@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/BaoNinh2808/gnark/internal/algo_utils"
 	"github.com/consensys/gnark-crypto/utils"
 	"github.com/consensys/gnark/constraint/solver"
-	"github.com/consensys/gnark/internal/algo_utils"
 )
 
 type GkrVariable int // Just an alias to hide implementation details. May be more trouble than worth

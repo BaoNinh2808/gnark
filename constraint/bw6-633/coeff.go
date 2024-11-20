@@ -20,7 +20,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"github.com/consensys/gnark/constraint"
-	"github.com/consensys/gnark/internal/utils"
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"math/big"
 
 	"github.com/consensys/gnark-crypto/ecc/bw6-633/fr"

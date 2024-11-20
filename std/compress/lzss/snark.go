@@ -1,12 +1,12 @@
 package lzss
 
 import (
+	"github.com/BaoNinh2808/gnark/std/compress/internal"
+	"github.com/BaoNinh2808/gnark/std/compress/internal/plonk"
 	"github.com/consensys/compress/lzss"
 	hint "github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/std/compress"
-	"github.com/consensys/gnark/std/compress/internal"
-	"github.com/consensys/gnark/std/compress/internal/plonk"
 	"github.com/consensys/gnark/std/lookup/logderivlookup"
 )
 

@@ -19,9 +19,9 @@ package fields_bls12377
 import (
 	"math/big"
 
+	"github.com/BaoNinh2808/gnark/internal/frontendtype"
 	bls12377 "github.com/consensys/gnark-crypto/ecc/bls12-377"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/internal/frontendtype"
 )
 
 // E6 element in a quadratic extension

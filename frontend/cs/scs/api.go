@@ -26,12 +26,12 @@ import (
 	"github.com/consensys/gnark/debug"
 	"github.com/consensys/gnark/frontend/cs"
 
+	"github.com/BaoNinh2808/gnark/frontend/internal/expr"
+	"github.com/BaoNinh2808/gnark/internal/frontendtype"
 	"github.com/consensys/gnark/constraint"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/frontend/internal/expr"
 	"github.com/consensys/gnark/frontend/schema"
-	"github.com/consensys/gnark/internal/frontendtype"
 	"github.com/consensys/gnark/std/math/bits"
 )
 

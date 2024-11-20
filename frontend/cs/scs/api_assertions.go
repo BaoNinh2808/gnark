@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/BaoNinh2808/gnark/frontend/internal/expr"
 	"github.com/consensys/gnark/constraint"
 	"github.com/consensys/gnark/debug"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/frontend/internal/expr"
 	"github.com/consensys/gnark/std/math/bits"
 )
 

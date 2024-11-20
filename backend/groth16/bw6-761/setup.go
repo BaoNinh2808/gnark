@@ -23,7 +23,7 @@ import (
 	"github.com/consensys/gnark-crypto/ecc/bw6-761/fr"
 	"github.com/consensys/gnark-crypto/ecc/bw6-761/fr/fft"
 	"github.com/consensys/gnark-crypto/ecc/bw6-761/fr/pedersen"
-	"github.com/consensys/gnark/backend/groth16/internal"
+	"github.com/BaoNinh2808/gnark/backend/groth16/internal"
 	"github.com/consensys/gnark/constraint"
 	cs "github.com/consensys/gnark/constraint/bw6-761"
 	"math/big"

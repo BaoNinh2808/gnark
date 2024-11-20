@@ -22,7 +22,7 @@ import (
 	"github.com/consensys/gnark-crypto/ecc/bw6-633/fr/fft"
 	"github.com/consensys/gnark-crypto/ecc/bw6-633/fr/iop"
 	"github.com/consensys/gnark-crypto/ecc/bw6-633/kzg"
-	"github.com/consensys/gnark/backend/plonk/internal"
+	"github.com/BaoNinh2808/gnark/backend/plonk/internal"
 	"github.com/consensys/gnark/constraint"
 	cs "github.com/consensys/gnark/constraint/bw6-633"
 )

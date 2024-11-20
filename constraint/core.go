@@ -6,13 +6,13 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/BaoNinh2808/gnark/internal/tinyfield"
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"github.com/blang/semver/v4"
 	"github.com/consensys/gnark"
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/debug"
-	"github.com/consensys/gnark/internal/tinyfield"
-	"github.com/consensys/gnark/internal/utils"
 	"github.com/consensys/gnark/logger"
 	"github.com/consensys/gnark/profile"
 )

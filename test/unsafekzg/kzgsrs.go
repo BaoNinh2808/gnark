@@ -14,10 +14,10 @@ import (
 	"regexp"
 	"sync"
 
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark-crypto/kzg"
 	"github.com/consensys/gnark/constraint"
-	"github.com/consensys/gnark/internal/utils"
 	"github.com/consensys/gnark/logger"
 
 	kzg_bls12377 "github.com/consensys/gnark-crypto/ecc/bls12-377/kzg"

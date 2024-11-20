@@ -2,7 +2,7 @@ package solver
 
 import (
 	"fmt"
-	"github.com/consensys/gnark/internal/hints"
+	"github.com/BaoNinh2808/gnark/internal/hints"
 	"math/big"
 	"sync"
 

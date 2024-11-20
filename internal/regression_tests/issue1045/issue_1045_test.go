@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	explicitHintName  = "github.com/consensys/gnark/internal/regression_tests/issue1045.ExplicitHint"
-	anonymousHintName = "github.com/consensys/gnark/internal/regression_tests/issue1045.glob..func1"
+	explicitHintName  = "github.com/BaoNinh2808/gnark/internal/regression_tests/issue1045.ExplicitHint"
+	anonymousHintName = "github.com/BaoNinh2808/gnark/internal/regression_tests/issue1045.glob..func1"
 )
 
 func ExplicitHint(mod *big.Int, inputs []*big.Int, outputs []*big.Int) error {

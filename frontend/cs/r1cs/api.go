@@ -19,21 +19,22 @@ package r1cs
 import (
 	"errors"
 	"fmt"
-	"github.com/consensys/gnark/internal/hints"
 	"path/filepath"
 	"reflect"
 	"runtime"
 	"strings"
 
-	"github.com/consensys/gnark/internal/utils"
+	"github.com/BaoNinh2808/gnark/internal/hints"
+
+	"github.com/BaoNinh2808/gnark/internal/utils"
 
 	"github.com/consensys/gnark/debug"
 	"github.com/consensys/gnark/frontend/cs"
 
+	"github.com/BaoNinh2808/gnark/frontend/internal/expr"
 	"github.com/consensys/gnark/constraint"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/frontend/internal/expr"
 	"github.com/consensys/gnark/frontend/schema"
 	"github.com/consensys/gnark/std/math/bits"
 )

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/BaoNinh2808/gnark/internal/utils"
+	limbs "github.com/BaoNinh2808/gnark/std/internal/limbcomposition"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/internal/utils"
-	limbs "github.com/consensys/gnark/std/internal/limbcomposition"
 )
 
 // Element defines an element in the ring of integers modulo n. The integer

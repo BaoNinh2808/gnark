@@ -21,7 +21,7 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 	"github.com/consensys/gnark/frontend/cs/scs"
-	"github.com/consensys/gnark/internal/backend/circuits"
+	"github.com/BaoNinh2808/gnark/internal/backend/circuits"
 	"reflect"
 	"testing"
 
@@ -30,7 +30,7 @@ import (
 
 	"github.com/consensys/gnark/constraint/tinyfield"
 
-	fr "github.com/consensys/gnark/internal/tinyfield"
+	fr "github.com/BaoNinh2808/gnark/internal/tinyfield"
 )
 
 func TestSerialization(t *testing.T) {

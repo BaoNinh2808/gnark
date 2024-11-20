@@ -48,7 +48,7 @@ import (
 	cs "github.com/consensys/gnark/constraint/bw6-761"
 	"github.com/consensys/gnark/constraint/solver"
 	fcs "github.com/consensys/gnark/frontend/cs"
-	"github.com/consensys/gnark/internal/utils"
+	"github.com/BaoNinh2808/gnark/internal/utils"
 	"github.com/consensys/gnark/logger"
 )
 

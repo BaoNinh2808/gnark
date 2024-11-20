@@ -3,6 +3,7 @@ package std
 import (
 	"sync"
 
+	"github.com/BaoNinh2808/gnark/std/internal/logderivarg"
 	"github.com/consensys/gnark/constraint/solver"
 	"github.com/consensys/gnark/std/algebra/emulated/fields_bls12381"
 	"github.com/consensys/gnark/std/algebra/emulated/fields_bn254"
@@ -13,7 +14,6 @@ import (
 	"github.com/consensys/gnark/std/algebra/native/sw_bls12377"
 	"github.com/consensys/gnark/std/algebra/native/sw_bls24315"
 	"github.com/consensys/gnark/std/evmprecompiles"
-	"github.com/consensys/gnark/std/internal/logderivarg"
 	"github.com/consensys/gnark/std/math/bits"
 	"github.com/consensys/gnark/std/math/bitslice"
 	"github.com/consensys/gnark/std/math/cmp"

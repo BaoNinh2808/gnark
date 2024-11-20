@@ -21,6 +21,7 @@ import (
 	bn254 "github.com/consensys/gnark/constraint/bn254"
 	"github.com/stretchr/testify/require"
 
+	test_vector_utils "github.com/BaoNinh2808/gnark/std/internal/test_vectors_utils"
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr"
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr/gkr"
@@ -33,7 +34,6 @@ import (
 	"github.com/consensys/gnark/frontend/cs/scs"
 	stdHash "github.com/consensys/gnark/std/hash"
 	"github.com/consensys/gnark/std/hash/mimc"
-	test_vector_utils "github.com/consensys/gnark/std/internal/test_vectors_utils"
 	"github.com/consensys/gnark/test/unsafekzg"
 )
 
