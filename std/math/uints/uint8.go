@@ -352,6 +352,23 @@ func (bf *BinaryField[T]) isEqual(a, b U8) frontend.Variable {
 	return bf.api.IsZero(bf.api.Sub(a.Val, b.Val))
 }
 
+func (bf *BinaryField[T]) IsEqual(a, b T) frontend.Variable {
+	lenB := bf.lenBts()
+	// create a array of frontend.Variable with lenght lenB
+	isEqual := make([]frontend.Variable, lenB)
+
+	for i := 0; i < lenB; i++ {
+		isEqual[i] = bf.isEqual(a[i], b[i])
+	}
+
+	res := frontend.Variable(1)
+	for i := 0; i < lenB; i++ {
+		res = bf.api.And(res, isEqual[i])
+	}
+
+	return res
+}
+
 func (bf *BinaryField[T]) isLess(a, b U8) frontend.Variable {
 	return bf.u8cmpApi.IsLess(a.Val, b.Val)
 }
