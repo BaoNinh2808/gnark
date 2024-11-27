@@ -364,6 +364,10 @@ func (bf *BinaryField[T]) IsEqualU8(a, b U8) frontend.Variable {
 	return bf.api.IsZero(bf.api.Sub(a.Val, b.Val))
 }
 
+func (bf *BinaryField[T]) IsLessEqualU8(a, b U8) frontend.Variable {
+	return bf.u8cmpApi.IsLessEq(a.Val, b.Val)
+}
+
 func (bf *BinaryField[T]) CompareU8(a, b U8) frontend.Variable {
 	// 1 if a > b
 	// 0 if a = b
