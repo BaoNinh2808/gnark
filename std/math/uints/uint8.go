@@ -348,8 +348,20 @@ func (bf *BinaryField[T]) ByteAssertIsLessEq(a, b U8) {
 	bf.u8cmpApi.AssertIsLessEq(a.Val, b.Val)
 }
 
-func (bf *BinaryField[T]) isEqual(a, b U8) frontend.Variable {
+func (bf *BinaryField[T]) IsEqualU8(a, b U8) frontend.Variable {
 	return bf.api.IsZero(bf.api.Sub(a.Val, b.Val))
+}
+
+func (bf *BinaryField[T]) CompareU8(a, b U8) frontend.Variable {
+	// 1 if a > b
+	// 0 if a = b
+	// -1 if a < b
+
+	isEqual := bf.IsEqualU8(a, b)
+	isLess := bf.u8cmpApi.IsLess(a.Val, b.Val)
+
+	// Return 1 if a > b, 0 if a = b, -1 if a < b
+	return bf.api.Select(isEqual, 0, bf.api.Select(isLess, -1, 1))
 }
 
 func (bf *BinaryField[T]) IsEqual(a, b T) frontend.Variable {
@@ -358,7 +370,7 @@ func (bf *BinaryField[T]) IsEqual(a, b T) frontend.Variable {
 	isEqual := make([]frontend.Variable, lenB)
 
 	for i := 0; i < lenB; i++ {
-		isEqual[i] = bf.isEqual(a[i], b[i])
+		isEqual[i] = bf.IsEqualU8(a[i], b[i])
 	}
 
 	res := frontend.Variable(1)
@@ -382,11 +394,11 @@ func (bf *BinaryField[T]) IsLess(a, b T) frontend.Variable {
 	isEqual := make([]frontend.Variable, lenB)
 
 	isLess[0] = bf.IsLessU8(a[lenB-1], b[lenB-1])
-	isEqual[0] = bf.isEqual(a[lenB-1], b[lenB-1])
+	isEqual[0] = bf.IsEqualU8(a[lenB-1], b[lenB-1])
 
 	for i := 1; i < lenB; i++ {
 		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.IsLessU8(a[lenB-1-i], b[lenB-1-i]))
-		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.isEqual(a[lenB-1-i], b[lenB-1-i]))
+		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.IsEqualU8(a[lenB-1-i], b[lenB-1-i]))
 	}
 
 	fmt.Println("isLess: ", isLess)
@@ -422,11 +434,11 @@ func (bf *BinaryField[T]) AssertIsLess(a, b T) {
 	isEqual := make([]frontend.Variable, lenB)
 
 	isLess[0] = bf.IsLessU8(a[lenB-1], b[lenB-1])
-	isEqual[0] = bf.isEqual(a[lenB-1], b[lenB-1])
+	isEqual[0] = bf.IsEqualU8(a[lenB-1], b[lenB-1])
 
 	for i := 1; i < lenB; i++ {
 		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.IsLessU8(a[lenB-1-i], b[lenB-1-i]))
-		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.isEqual(a[lenB-1-i], b[lenB-1-i]))
+		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.IsEqualU8(a[lenB-1-i], b[lenB-1-i]))
 	}
 
 	//assert isLess != 0 (because there is a case that a = b ==> isLess = {0, 0, 0, 0, 0, 0, 0, 0} & isEqual = {1, 1, 1, 1, 1, 1, 1, 1} ==> xorValue = {1, 1, 1, 1, 1, 1, 1, 1})
