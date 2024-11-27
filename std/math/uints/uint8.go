@@ -334,6 +334,18 @@ func (bf *BinaryField[T]) ByteAssertEq(a, b U8) {
 	bf.api.AssertIsEqual(a.Val, b.Val)
 }
 
+// AddU8 adds multiple U8 values and returns a U8.
+func (bf *BinaryField[T]) AddU8(values ...U8) U8 {
+	if len(values) == 0 {
+		return U8{Val: 0}
+	}
+	sum := values[0].Val
+	for i := 1; i < len(values); i++ {
+		sum = bf.api.Add(sum, values[i].Val)
+	}
+	return U8{Val: sum}
+}
+
 func (bf *BinaryField[T]) AssertEq(a, b T) {
 	for i := 0; i < bf.lenBts(); i++ {
 		bf.ByteAssertEq(a[i], b[i])
