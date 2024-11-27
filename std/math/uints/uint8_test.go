@@ -137,8 +137,8 @@ func (c *assertLessCircuit) Define(api frontend.API) error {
 	if err != nil {
 		return err
 	}
-	uapi.AssertIsLess(c.A, c.B)
 	uapi.api.AssertIsEqual(uapi.IsLess(c.A, c.B), c.Expected)
+	uapi.AssertIsLess(c.A, c.B)
 	return nil
 }
 

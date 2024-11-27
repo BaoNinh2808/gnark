@@ -369,23 +369,27 @@ func (bf *BinaryField[T]) IsEqual(a, b T) frontend.Variable {
 	return res
 }
 
-func (bf *BinaryField[T]) isLess(a, b U8) frontend.Variable {
+func (bf *BinaryField[T]) IsLessU8(a, b U8) frontend.Variable {
 	return bf.u8cmpApi.IsLess(a.Val, b.Val)
 }
 
 func (bf *BinaryField[T]) IsLess(a, b T) frontend.Variable {
+	fmt.Println("a : ", a)
 	lenB := bf.lenBts()
+
 	// create a array of frontend.Variable with lenght lenB
 	isLess := make([]frontend.Variable, lenB)
 	isEqual := make([]frontend.Variable, lenB)
 
-	isLess[0] = bf.isLess(a[lenB-1], b[lenB-1])
+	isLess[0] = bf.IsLessU8(a[lenB-1], b[lenB-1])
 	isEqual[0] = bf.isEqual(a[lenB-1], b[lenB-1])
 
 	for i := 1; i < lenB; i++ {
-		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.isLess(a[lenB-1-i], b[lenB-1-i]))
+		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.IsLessU8(a[lenB-1-i], b[lenB-1-i]))
 		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.isEqual(a[lenB-1-i], b[lenB-1-i]))
 	}
+
+	fmt.Println("isLess: ", isLess)
 
 	//assert isLess != 0 (because there is a case that a = b ==> isLess = {0, 0, 0, 0, 0, 0, 0, 0} & isEqual = {1, 1, 1, 1, 1, 1, 1, 1} ==> xorValue = {1, 1, 1, 1, 1, 1, 1, 1})
 	sum := frontend.Variable(0)
@@ -393,19 +397,21 @@ func (bf *BinaryField[T]) IsLess(a, b T) frontend.Variable {
 		sum = bf.api.Add(sum, isLess[i])
 	}
 	isLessAllZero := bf.api.IsZero(sum)
+	fmt.Println("isLessAllZero: ", isLessAllZero)
 
 	xorValue := make([]frontend.Variable, lenB)
 	for i := 0; i < lenB; i++ {
 		xorValue[i] = bf.api.Xor(isLess[i], isEqual[i])
 	}
 
-	sumXorValue := frontend.Variable(0)
+	andXorValue := frontend.Variable(0)
 	for i := 0; i < lenB; i++ {
-		sumXorValue = bf.api.Add(sumXorValue, xorValue[i])
+		andXorValue = bf.api.Add(andXorValue, xorValue[i])
 	}
-	isXorValueAllOne := bf.api.IsZero(bf.api.Sub(sumXorValue, lenB))
+	isXorValueAllOne := bf.api.IsZero(bf.api.Sub(andXorValue, lenB))
 
 	res := bf.api.Select(isLessAllZero, 0, isXorValueAllOne)
+	fmt.Println("res: ", res)
 	return res
 }
 
@@ -415,11 +421,11 @@ func (bf *BinaryField[T]) AssertIsLess(a, b T) {
 	isLess := make([]frontend.Variable, lenB)
 	isEqual := make([]frontend.Variable, lenB)
 
-	isLess[0] = bf.isLess(a[lenB-1], b[lenB-1])
+	isLess[0] = bf.IsLessU8(a[lenB-1], b[lenB-1])
 	isEqual[0] = bf.isEqual(a[lenB-1], b[lenB-1])
 
 	for i := 1; i < lenB; i++ {
-		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.isLess(a[lenB-1-i], b[lenB-1-i]))
+		isLess[i] = bf.api.Select(isLess[i-1], isLess[i-1], bf.IsLessU8(a[lenB-1-i], b[lenB-1-i]))
 		isEqual[i] = bf.api.Select(bf.api.IsZero(isEqual[i-1]), isEqual[i-1], bf.isEqual(a[lenB-1-i], b[lenB-1-i]))
 	}
 
