@@ -256,6 +256,10 @@ func (bf *BinaryField[T]) not(a U8) U8 {
 	return U8{Val: ret[0]}
 }
 
+func (bf *BinaryField[T]) NotU8(a U8) U8 {
+	return bf.not(a)
+}
+
 func (bf *BinaryField[T]) Not(a T) T {
 	var r T
 	for i := 0; i < len(a); i++ {
